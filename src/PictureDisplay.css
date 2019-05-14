@@ -1,0 +1,47 @@
+.PictureDisplay {
+  background-color: black;
+  background-size: cover;
+
+  color: white;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-wrapper {
+  max-width: 600px;
+  width: 100%;
+  max-height: calc(100vh - 40px);
+  margin: 20px;
+
+  box-sizing: border-box;
+  overflow: auto;
+
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  padding: 30px;
+
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+h4 {
+  margin-top: 0;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  color: #f90;
+}
+p {
+  line-height: 1.7;
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.9);
+}
