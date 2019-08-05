@@ -1,16 +1,42 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 
 import PictureDisplay from './PictureDisplay';
+import Loading from './Loading';
+
+const getData = async () => {
+  const res = await fetch('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY');
+  const data = await res.json();
+  return data;
+}
+
 
 function App() {
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    getData().then(data => {
+      setData(data);
+      setIsLoading(false);
+    });
+  }, []);
+
   return (
-    <PictureDisplay
-      title="Young Star Cluster Trumpler 14 from Hubble"
-      description="Why does star cluster Trumpler 14 have so many bright stars? Because it is so young. Many cluster stars have formed only in the past 5 million years and are so hot they emit detectable X-rays.  In older star clusters, most stars this young have already died -- typically exploding in a supernova -- leaving behind stars that are fainter and redder. Trumpler 14 spans about 40 light years and lies about 9,000 light years away on the edge of the famous Carina Nebula. A discerning eye can spot two unusual objects in this detailed 2006 image of Trumpler 14 by the Hubble Space Telescope. First, a dark cloud just left of center may be a planetary system trying to form before being destroyed by the energetic winds of Trumpler 14's massive stars. Second is the arc at the bottom left, which one hypothesis holds is the supersonic shock wave of a fast star ejected 100,000 years ago from a completely different star cluster."
-      imageURL="https://apod.nasa.gov/apod/image/1905/Trumpler14_Hubble_960.jpg"
-      date="14 May 2019"
-    />
+    <div>
+      {isLoading ? <Loading /> :
+        <PictureDisplay
+          title={data.title}
+          description={data.explanation}
+          imageURL={data.url}
+          date={data.date}
+        />
+      }
+    </div>
+
   );
+
 }
+
 
 export default App;
